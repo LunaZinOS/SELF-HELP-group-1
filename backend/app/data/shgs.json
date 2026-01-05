@@ -1,0 +1,49 @@
+{
+  "shgs": [
+    {
+      "id": 1,
+      "code": "SHG-MP-001",
+      "name": "Mahila Vikas SHG",
+      "state": "Madhya Pradesh",
+      "district": "Indore",
+      "block": "Indore Urban",
+      "members": 15,
+      "savings": 250000,
+      "loans": 8,
+      "foundedYear": 2018,
+      "head": "Meera Sharma",
+      "contact": "9876543210",
+      "email": "mahila.vikas@shg.com"
+    },
+    {
+      "id": 2,
+      "code": "SHG-MP-002",
+      "name": "Shakti Nari SHG",
+      "state": "Madhya Pradesh",
+      "district": "Ujjain",
+      "block": "Ujjain Urban",
+      "members": 12,
+      "savings": 180000,
+      "loans": 5,
+      "foundedYear": 2019,
+      "head": "Anjali Verma",
+      "contact": "9876543211",
+      "email": "shakti.nari@shg.com"
+    },
+    {
+      "id": 3,
+      "code": "SHG-MP-003",
+      "name": "Naari Shakti SHG",
+      "state": "Madhya Pradesh",
+      "district": "Indore",
+      "block": "Indore",
+      "members": 18,
+      "savings": 320000,
+      "loans": 10,
+      "foundedYear": 2017,
+      "head": "Sunita Patel",
+      "contact": "9876543212",
+      "email": "naari.shakti@shg.com"
+    }
+  ]
+}

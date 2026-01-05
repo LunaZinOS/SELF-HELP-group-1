@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "member@shg.com",
+      "password": "$2a$10$5K5.8K8E5K5E5K5E5K5E5K5E5K5E5K5E5K5E5K5E5K5E5",
+      "role": "member",
+      "shgCode": "SHG-MP-001",
+      "name": "Priya Sharma",
+      "createdAt": "2024-01-15"
+    },
+    {
+      "id": 2,
+      "email": "admin@shg.com",
+      "password": "$2a$10$5K5.8K8E5K5E5K5E5K5E5K5E5K5E5K5E5K5E5K5E5K5E5",
+      "role": "admin",
+      "shgCode": "SHG-MP-001",
+      "name": "Meera Sharma",
+      "createdAt": "2024-01-10"
+    },
+    {
+      "id": 3,
+      "email": "volunteer@shg.com",
+      "password": "$2a$10$5K5.8K8E5K5E5K5E5K5E5K5E5K5E5K5E5K5E5K5E5K5E5",
+      "role": "volunteer",
+      "name": "Rajesh Kumar",
+      "state": "Madhya Pradesh",
+      "district": "Indore",
+      "createdAt": "2024-02-01"
+    }
+  ]
+}
