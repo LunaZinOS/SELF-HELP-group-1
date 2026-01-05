@@ -1,0 +1,32 @@
+{
+  "volunteers": [
+    {
+      "id": 1,
+      "name": "Rajesh Kumar",
+      "email": "rajesh@example.com",
+      "phone": "9876543210",
+      "state": "Madhya Pradesh",
+      "district": "Indore",
+      "skills": ["Business Mentorship", "Digital Training", "Marketing"],
+      "hoursVolunteered": 24,
+      "activitiesJoined": 5,
+      "shgsSupported": 3,
+      "status": "active",
+      "registrationDate": "2024-10-15"
+    },
+    {
+      "id": 2,
+      "name": "Neha Singh",
+      "email": "neha@example.com",
+      "phone": "9876543211",
+      "state": "Maharashtra",
+      "district": "Pune",
+      "skills": ["Agriculture", "Women Empowerment", "Training"],
+      "hoursVolunteered": 18,
+      "activitiesJoined": 4,
+      "shgsSupported": 2,
+      "status": "active",
+      "registrationDate": "2024-11-05"
+    }
+  ]
+}
