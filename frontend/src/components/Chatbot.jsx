@@ -7,14 +7,13 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hi there! 👋 I'm your SHG Platform Guide powered by AI. How can I help you today?",
+      text: "Hello! 👋 I'm your AI Assistant for the SHG Platform. Ask me anything about Self Help Groups!",
       sender: 'bot',
       timestamp: new Date(),
     },
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -41,10 +40,8 @@ export default function Chatbot() {
     setMessages((prev) => [...prev, userMessage]);
     setInputValue('');
     setIsLoading(true);
-    setError(null);
 
     try {
-      // Call Gemini API
       const botResponse = await sendMessageToGemini(inputValue);
 
       const botMessage = {
@@ -55,12 +52,11 @@ export default function Chatbot() {
       };
 
       setMessages((prev) => [...prev, botMessage]);
-    } catch (err) {
-      console.error('Error:', err);
-      setError(err.message);
+    } catch (error) {
+      console.error('Error:', error);
       const errorMessage = {
         id: messages.length + 2,
-        text: `Sorry, I encountered an error: ${err.message}. Please try again.`,
+        text: 'Sorry, I encountered an error. Please try again.',
         sender: 'bot',
         timestamp: new Date(),
       };
@@ -70,52 +66,51 @@ export default function Chatbot() {
     }
   };
 
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className="chatbot-container">
-      {/* Chat Bubble Button */}
       <button
         className={`chatbot-toggle ${isOpen ? 'open' : ''}`}
-        onClick={() => setIsOpen(!isOpen)}
-        title="Open Chat"
+        onClick={handleToggle}
+        aria-label="Toggle chatbot"
       >
         <span className="chatbot-icon">💬</span>
       </button>
 
-      {/* Chat Window */}
       {isOpen && (
-        <div className="chatbot-window scale-in">
-          {/* Header */}
+        <div className="chatbot-window">
           <div className="chatbot-header">
-            <h3>SHG Platform Guide</h3>
+            <h3>SHG AI Assistant</h3>
             <button
               className="chatbot-close"
-              onClick={() => setIsOpen(false)}
-              title="Close"
+              onClick={handleClose}
+              aria-label="Close chatbot"
             >
               ✕
             </button>
           </div>
 
-          {/* Messages Container */}
           <div className="chatbot-messages">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`message ${message.sender === 'user' ? 'user-message' : 'bot-message'}`}
-              >
+            {messages.map((msg) => (
+              <div key={msg.id} className={`message ${msg.sender}-message`}>
                 <div className="message-bubble">
-                  {message.text}
-                  {/* Optional: Show timestamp */}
-                  <span className="message-time">
-                    {message.timestamp.toLocaleTimeString('en-US', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </span>
+                  {msg.text}
                 </div>
+                <span className="message-time">
+                  {msg.timestamp.toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
+                </span>
               </div>
             ))}
-
             {isLoading && (
               <div className="message bot-message">
                 <div className="message-bubble loading">
@@ -125,11 +120,9 @@ export default function Chatbot() {
                 </div>
               </div>
             )}
-
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Form */}
           <form className="chatbot-input-form" onSubmit={handleSendMessage}>
             <input
               type="text"
@@ -140,9 +133,8 @@ export default function Chatbot() {
             />
             <button
               type="submit"
-              disabled={!inputValue.trim() || isLoading}
               className="send-button"
-              title="Send message"
+              disabled={isLoading || !inputValue.trim()}
             >
               ➤
             </button>
