@@ -50,11 +50,45 @@ export const sendMessageToGemini = async (userMessage) => {
       throw new Error('Invalid response format');
     } catch (error) {
       console.error('Gemini API Error:', error);
-      throw error;
+      return getDefaultResponse(userMessage);
     }
   }
 
-  throw new Error('API key not configured');
+  return getDefaultResponse(userMessage);
+};
+
+/**
+ * Provide default responses when API is unavailable
+ */
+const getDefaultResponse = (userMessage) => {
+  const lowerMessage = userMessage.toLowerCase();
+  
+  const responses = {
+    'self help': 'Self Help Groups (SHGs) are small groups of 10-20 members, typically women, who come together to achieve common socio-economic goals. They focus on savings, credit, skill development, and community welfare through mutual support.',
+    'group': 'SHGs are informal associations where members band together to pursue joint economic activities. They operate on principles of mutual aid, shared responsibility, and collective decision-making for sustainable development.',
+    'loan': 'SHGs provide microfinance to members through group savings. Members contribute regularly to a common fund, which is then lent to members at reasonable interest rates, promoting financial inclusion.',
+    'member': 'SHG members are typically women from rural communities who come together voluntarily. Members contribute to the group fund, participate in decision-making, and support each other\'s economic growth.',
+    'dashboard': 'The SHG Dashboard on our platform helps you track member details, view group activities, monitor loan disbursement, and celebrate group milestones all in one place.',
+    'announcement': 'Stay informed with our Announcements feature. Receive official updates from district, state, and national levels about policies, programs, and opportunities relevant to SHGs.',
+    'resource': 'Our Resources section provides training materials, success stories, and best practices from established SHGs. Learn from others and improve your group\'s operations and efficiency.',
+    'train': 'We offer training materials and skill development resources covering topics like financial management, business planning, and leadership for SHG members.',
+    'help': 'I\'m here to help you understand Self Help Groups, navigate the platform, and provide guidance on SHG management. Ask me anything about SHGs, loans, members, or platform features!',
+    'platform': 'This SHG Digital Platform connects Self Help Groups across India, providing tools for group management, communication, training, and access to microfinance opportunities.',
+    'feature': 'Key platform features include: SHG Dashboard, Announcements, Learning Resources, AI-powered Guide, National Overview, and Admin tools for effective group management.',
+    'training': 'We offer training materials and skill development resources covering topics like financial management, business planning, and leadership for SHG members.',
+    'women': 'Most SHG members are women who come together to achieve financial independence and social empowerment through collective action.',
+    'savings': 'Regular savings is the foundation of SHGs. Members contribute fixed amounts to a common fund that is used for lending and community development.',
+  };
+
+  // Check for keyword matches
+  for (const [key, response] of Object.entries(responses)) {
+    if (lowerMessage.includes(key)) {
+      return response;
+    }
+  }
+
+  // Default helpful response
+  return 'Great question! I can help you with information about Self Help Groups, how the platform works, SHG management, loans, member training, and more. What specific topic interests you?';
 };
 
 /**
