@@ -1,7 +1,8 @@
 // Gemini API Service
-// This service handles all communication with Gemini API through the backend
+// This service handles all communication with Gemini API directly
 
-const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL || 'http://localhost:5000';
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent';
 
 /**
  * Send a message to Gemini API and get a response
@@ -9,30 +10,52 @@ const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL || 'http://localh
  * @returns {Promise<string>} - The API response
  */
 export const sendMessageToGemini = async (userMessage) => {
-  try {
-    const response = await fetch(`${BACKEND_URL}/api/gemini/chat`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        message: userMessage,
-      }),
-    });
+  // Use direct Gemini API call
+  if (GEMINI_API_KEY) {
+    try {
+      const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: userMessage,
+                },
+              ],
+            },
+          ],
+          generationConfig: {
+            temperature: 0.7,
+            topK: 40,
+            topP: 0.95,
+            maxOutputTokens: 1024,
+          },
+        }),
+      });
 
-    if (!response.ok) {
-      throw new Error(
-        `API Error: ${response.status}`
-      );
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+        return data.candidates[0].content.parts[0].text;
+      }
+      
+      throw new Error('Invalid response format');
+    } catch (error) {
+      console.error('Gemini API Error:', error);
+      return getDefaultResponse(userMessage);
     }
-
-    const data = await response.json();
-    return data.response;
-  } catch (error) {
-    console.error('Gemini API Error:', error);
-    // Return fallback response on error
-    return getDefaultResponse(userMessage);
   }
+
+  // Fallback if no API key
+  return getDefaultResponse(userMessage);
 };
 
 /**
