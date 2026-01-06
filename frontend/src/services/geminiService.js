@@ -1,7 +1,7 @@
 // Gemini API Service
 // This service handles all communication with Gemini API through the backend
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL || 'http://localhost:5000';
 
 /**
  * Send a message to Gemini API and get a response
@@ -21,9 +21,8 @@ export const sendMessageToGemini = async (userMessage) => {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
       throw new Error(
-        errorData.detail || 'Failed to get response from Gemini API'
+        `API Error: ${response.status}`
       );
     }
 
