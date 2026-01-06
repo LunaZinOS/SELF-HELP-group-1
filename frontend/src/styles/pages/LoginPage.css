@@ -1,0 +1,209 @@
+/* Login Page Styles */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  padding: 2rem;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* Role Selection */
+.role-selection {
+  text-align: center;
+  color: #ffffff;
+}
+
+.role-selection h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.role-subtitle {
+  font-size: 1.1rem;
+  color: #d1fae5;
+  margin-bottom: 2.5rem;
+}
+
+.role-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.role-card {
+  background: #ffffff;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid;
+}
+
+.role-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.member-card {
+  border-left-color: #10b981;
+}
+
+.admin-card {
+  border-left-color: #0891b2;
+}
+
+.volunteer-card {
+  border-left-color: #10b981;
+}
+
+.role-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.role-card h3 {
+  font-size: 1.3rem;
+  color: #10b981;
+  margin-bottom: 0.5rem;
+}
+
+.role-card p {
+  color: #475569;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Login Form */
+.login-form-wrapper {
+  position: relative;
+  background: #ffffff;
+  padding: 3rem;
+  border-radius: 12px;
+  max-width: 450px;
+  margin: 0 auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.back-btn {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: none;
+  border: none;
+  color: #10b981;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.back-btn:hover {
+  color: #0891b2;
+}
+
+.login-form {
+  margin-top: 2rem;
+}
+
+.login-form h2 {
+  font-size: 1.8rem;
+  color: #10b981;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #10b981;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+  color: #1f2937 !important;
+  background-color: #ffffff !important;
+}
+
+.form-group input::placeholder {
+  color: #9ca3af !important;
+}
+
+.form-group input:autofill,
+.form-group input:-webkit-autofill {
+  -webkit-box-shadow: inset 0 0 0 1000px #ffffff !important;
+  -webkit-text-fill-color: #1f2937 !important;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #2d5016;
+  box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+}
+
+.btn-large {
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1.05rem;
+  margin-top: 1rem;
+}
+
+.form-toggle {
+  text-align: center;
+  color: #475569;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #10b981;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.toggle-btn:hover {
+  color: #0891b2;
+}
+
+@media (max-width: 768px) {
+  .role-selection h1 {
+    font-size: 1.8rem;
+  }
+
+  .role-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .login-form-wrapper {
+    padding: 2rem;
+  }
+
+  .login-form h2 {
+    font-size: 1.5rem;
+  }
+}

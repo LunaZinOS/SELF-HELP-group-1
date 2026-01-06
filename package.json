@@ -1,0 +1,28 @@
+{
+  "name": "shg-digital-platform",
+  "version": "1.0.0",
+  "description": "SHG Digital Platform - Self Help Group Management System",
+  "private": true,
+  "scripts": {
+    "frontend:install": "cd frontend && npm install",
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:build": "cd frontend && npm run build",
+    "frontend:deploy": "cd frontend && npm run deploy",
+    "backend:install": "cd backend && python -m venv venv && source venv/bin/activate && pip install -r requirements.txt",
+    "backend:dev": "cd backend && python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 5000"
+  },
+  "keywords": [
+    "SHG",
+    "self-help-group",
+    "management",
+    "dashboard",
+    "react",
+    "fastapi"
+  ],
+  "author": "LunaZinOS",
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
+

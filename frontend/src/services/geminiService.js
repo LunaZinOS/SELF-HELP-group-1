@@ -1,9 +1,7 @@
 // Gemini API Service
-// This service handles all communication with Google's Gemini API
+// This service handles all communication with Gemini API through the backend
 
-const GEMINI_API_KEY = 'AIzaSyBxJBvAD_iR_2xYTxVszd7wh_o79NT-fzc';
-// Using fallback responses due to API model compatibility issues
-const USE_FALLBACK = false;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
 
 /**
  * Send a message to Gemini API and get a response
@@ -12,57 +10,25 @@ const USE_FALLBACK = false;
  */
 export const sendMessageToGemini = async (userMessage) => {
   try {
-    // For now, using reliable fallback responses
-    if (USE_FALLBACK) {
-      return getDefaultResponse(userMessage);
-    }
-
-    const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-latest:generateContent';
-    
-    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+    const response = await fetch(`${BACKEND_URL}/api/gemini/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        contents: [
-          {
-            role: 'user',
-            parts: [
-              {
-                text: `You are a helpful guide for the National Self Help Group (SHG) Digital Platform. You help users understand what Self Help Groups are, how the platform works, and provide guidance on SHG management in simple, non-technical language. Always be friendly and use real-world examples relevant to rural communities and SHGs in India.
-
-User Question: ${userMessage}
-
-Please provide a clear, concise response in 2-3 sentences that directly answers the question.`,
-              },
-            ],
-          },
-        ],
-        generationConfig: {
-          temperature: 0.7,
-          topK: 40,
-          topP: 0.95,
-          maxOutputTokens: 1024,
-        },
+        message: userMessage,
       }),
     });
 
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(
-        errorData.error?.message || 'Failed to get response from Gemini API'
+        errorData.detail || 'Failed to get response from Gemini API'
       );
     }
 
     const data = await response.json();
-    const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (!generatedText) {
-      throw new Error('No response generated from Gemini API');
-    }
-
-    return generatedText;
+    return data.response;
   } catch (error) {
     console.error('Gemini API Error:', error);
     // Return fallback response on error
